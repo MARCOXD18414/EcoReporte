@@ -121,15 +121,10 @@ export function TarjetaUbicacion({ reporte, onCerrar, acciones }) {
 /**
  * Proveedores de mapa base SIN API key, en orden de preferencia.
  * Si uno falla (bloqueo de red, límite, caída), se cambia solo al siguiente.
+ * Nota: CARTO ya no se usa: en dominios públicos (onrender.com) responde 200 con una
+ * imagen "API KEY REQUIRED", que no dispara el respaldo automático.
  */
 const PROVEEDORES_MAPA = [
-  {
-    id: 'carto',
-    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    subdomains: 'abcd',
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  },
   {
     id: 'esri',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
