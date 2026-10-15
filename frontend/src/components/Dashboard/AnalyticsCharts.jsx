@@ -17,7 +17,7 @@ export default function AnalyticsCharts({ kpis }) {
   const estados = Object.entries(kpis.porEstado).map(([slug, valor]) => ({
     nombre: NOMBRES_ESTADO[slug] || slug,
     valor,
-    color: ESTILO_ESTADO[slug]?.color || '#94a3b8',
+    color: ESTILO_ESTADO[slug]?.color || '#CEA3F3',
   }));
   const tipos = kpis.porTipo.map((t) => ({ ...t, corto: t.nombre.split(' / ')[0] }));
   const serie = kpis.serieDiaria.map((d) => ({ ...d, dia: d.fecha.slice(5) }));
@@ -27,11 +27,11 @@ export default function AnalyticsCharts({ kpis }) {
       <Panel titulo="Reportes por tipo" className="lg:col-span-2">
         <ResponsiveContainer>
           <BarChart data={tipos} margin={{ left: -20, right: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#D6E1F1" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1DEF8" />
             <XAxis dataKey="corto" tick={{ fontSize: 11 }} interval={0} angle={-20} textAnchor="end" height={50} />
             <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
             <Tooltip formatter={(v) => [v, 'Reportes']} labelFormatter={(_, p) => p?.[0]?.payload?.nombre} />
-            <Bar dataKey="valor" fill="#F7891F" radius={[6, 6, 0, 0]} />
+            <Bar dataKey="valor" fill="#D40A8C" radius={[6, 6, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </Panel>
@@ -53,15 +53,15 @@ export default function AnalyticsCharts({ kpis }) {
           <AreaChart data={serie} margin={{ left: -20, right: 8 }}>
             <defs>
               <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#14294B" stopOpacity={0.5} />
-                <stop offset="100%" stopColor="#14294B" stopOpacity={0.02} />
+                <stop offset="0%" stopColor="#880EBA" stopOpacity={0.5} />
+                <stop offset="100%" stopColor="#880EBA" stopOpacity={0.02} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#D6E1F1" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1DEF8" />
             <XAxis dataKey="dia" tick={{ fontSize: 11 }} />
             <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
             <Tooltip formatter={(v) => [v, 'Reportes']} />
-            <Area type="monotone" dataKey="reportes" stroke="#14294B" strokeWidth={2} fill="url(#grad)" />
+            <Area type="monotone" dataKey="reportes" stroke="#880EBA" strokeWidth={2} fill="url(#grad)" />
           </AreaChart>
         </ResponsiveContainer>
       </Panel>

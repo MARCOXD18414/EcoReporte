@@ -112,7 +112,7 @@ export default function CameraModal({ abierto, onCerrar, onFoto }) {
           onClick={capturar}
           disabled={!listo}
           aria-label="Tomar foto"
-          className="h-20 w-20 rounded-full border-[6px] border-white bg-naranja-500 disabled:opacity-40"
+          className="h-20 w-20 rounded-full border-[6px] border-white bg-magenta-500 disabled:opacity-40"
         >
           <Camera size={30} className="mx-auto text-white" aria-hidden />
         </button>

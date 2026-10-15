@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { CheckCircle2, CloudOff, AlertTriangle, Info, X } from 'lucide-react';
 
 const ESTILOS = {
-  exito: { Icono: CheckCircle2, clase: 'bg-emerald-600' },
-  offline: { Icono: CloudOff, clase: 'bg-marino-700' },
-  error: { Icono: AlertTriangle, clase: 'bg-red-600' },
-  info: { Icono: Info, clase: 'bg-marino-800' },
+  exito: { Icono: CheckCircle2, clase: 'bg-turquesa-600' },
+  offline: { Icono: CloudOff, clase: 'bg-morado-700' },
+  error: { Icono: AlertTriangle, clase: 'bg-magenta-600' },
+  info: { Icono: Info, clase: 'bg-morado-800' },
 };
 
 export default function Toast({ toast, onCerrar }) {

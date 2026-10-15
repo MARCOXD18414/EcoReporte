@@ -7,8 +7,8 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#0C1B33",
-  "theme_color": "#14294B",
+  "background_color": "#3B0A57",
+  "theme_color": "#6F04A2",
   "categories": ["utilities", "social", "government"],
   "icons": [
     { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },

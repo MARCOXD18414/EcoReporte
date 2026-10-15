@@ -34,15 +34,15 @@ export const CATALOGOS_LOCALES = {
 export const TIPOS_ALERTA_RAPIDA = [1, 2, 6, 7, 8, 9];
 
 export const ESTILO_SEVERIDAD = {
-  baja: { icono: '🟢', clase: 'border-emerald-500 bg-emerald-50 text-emerald-800', color: '#10b981' },
-  moderada: { icono: '🟠', clase: 'border-naranja-500 bg-naranja-50 text-naranja-800', color: '#F7891F' },
-  critica: { icono: '🔴', clase: 'border-red-600 bg-red-50 text-red-800', color: '#dc2626' },
+  baja: { icono: '🟢', clase: 'border-turquesa-500 bg-turquesa-50 text-turquesa-800', color: '#10DEAD', etiqueta: 'Baja' },
+  moderada: { icono: '🟡', clase: 'border-amarillo-400 bg-amarillo-50 text-amarillo-800', color: '#ECE524', etiqueta: 'Moderada' },
+  critica: { icono: '🔴', clase: 'border-magenta-500 bg-magenta-50 text-magenta-700', color: '#D40A8C', etiqueta: 'Crítica' },
 };
 
 export const ESTILO_ESTADO = {
-  pendiente: { color: '#dc2626', clase: 'bg-red-100 text-red-800', etiqueta: 'Pendiente' },
-  en_proceso: { color: '#F7891F', clase: 'bg-naranja-100 text-naranja-800', etiqueta: 'En Proceso' },
-  resuelto: { color: '#10b981', clase: 'bg-emerald-100 text-emerald-800', etiqueta: 'Resuelto' },
+  pendiente: { color: '#BA7CEE', clase: 'bg-morado-100 text-morado-800', etiqueta: 'Pendiente' },
+  en_proceso: { color: '#ECE524', clase: 'bg-amarillo-100 text-amarillo-800', etiqueta: 'En Proceso' },
+  resuelto: { color: '#10DEAD', clase: 'bg-turquesa-100 text-turquesa-800', etiqueta: 'Resuelto' },
 };
 
 /** Centro de Ciudad del Carmen, Campeche */

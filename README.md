@@ -1,4 +1,4 @@
-# 🌊 EcoReporta Carmen — *Amor x Carmen* 🧡
+# 🌱 EcoReporta Carmen — *Por un medio ambiente mejor* 💜
 
 PWA híbrida para reportar incidentes ambientales en la **Laguna de Términos**, los **manglares** y **Playa Norte** de Ciudad del Carmen, Campeche. Toma una foto y **Gemma 4** clasifica el incidente y pre-selecciona los campos. **Sin señal**, el reporte se guarda en el teléfono y se envía (y analiza) en cuanto vuelve la red.
 
@@ -134,5 +134,7 @@ ollama pull gemma4 && ollama serve
 * Áreas táctiles de 48 px o más, foco visible naranja, enlace “Saltar al contenido”, regiones `aria-live`, `prefers-reduced-motion` y navegación inferior en móvil.
 * **Mapa de pines exclusivamente** (Leaflet + OpenStreetMap, sin mapas de calor): el color indica el estatus y el emoji el tipo. Al seleccionar un pin aparece la tarjeta “Ubicación seleccionada”. Al reportar, el pin 📌 se arrastra o se recoloca tocando el mapa.
 
-## 🎨 Paleta “Amor x Carmen”
-Azul Marino `#14294B` · Naranja Cálido `#F7891F` (escalas completas en `frontend/tailwind.config.js`).
+## 🎨 Paleta “Por un medio ambiente mejor”
+Morado principal `#880EBA` · Morado oscuro `#6F04A2` · Magenta `#D40A8C` · Amarillo `#ECE524` · Turquesa `#10DEAD` · Turquesa claro `#4BE6C1` · Lila `#BA7CEE` · Lila claro `#CEA3F3` · Morado tinta `#3B0A57` · Blanco rosado `#F9EEF9` (escalas en `frontend/tailwind.config.js`).
+
+Niveles en el mapa: 🟢 Baja = turquesa · 🟡 Moderada = amarillo · 🔴 Crítica = magenta.

@@ -28,19 +28,19 @@ function TarjetaReporte({ r, onVerEnMapa }) {
       {r.imagen_url ? (
         <img src={r.imagen_url} alt={`Foto: ${r.tipo_nombre}`} loading="lazy" className="h-44 w-full object-cover" />
       ) : (
-        <div className="flex h-24 items-center justify-center bg-marino-50 text-5xl" aria-hidden>{r.tipo_icono}</div>
+        <div className="flex h-24 items-center justify-center bg-morado-50 text-5xl" aria-hidden>{r.tipo_icono}</div>
       )}
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex flex-wrap gap-1.5">
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${est.clase}`}>{r.estado_nombre}</span>
           <span className={`rounded-full border px-2.5 py-0.5 text-xs font-bold ${sev.clase}`}>{sev.icono} {r.severidad_nombre}</span>
-          {r.es_alerta_rapida && <span className="rounded-full bg-red-600 px-2.5 py-0.5 text-xs font-bold text-white">Alerta</span>}
+          {r.es_alerta_rapida && <span className="rounded-full bg-magenta-600 px-2.5 py-0.5 text-xs font-bold text-white">Alerta</span>}
         </div>
         <h3 className="font-bold leading-snug"><span aria-hidden>{r.tipo_icono}</span> {r.tipo_nombre}</h3>
         {(r.analisis_ia?.resumen || r.descripcion_detallada) && (
-          <p className="line-clamp-3 text-sm text-marino-700">{r.descripcion_detallada || r.analisis_ia.resumen}</p>
+          <p className="line-clamp-3 text-sm text-morado-700">{r.descripcion_detallada || r.analisis_ia.resumen}</p>
         )}
-        <p className="mt-auto text-xs text-marino-500">
+        <p className="mt-auto text-xs text-morado-500">
           {r.usuario_alias || 'Anónimo'} · {haceCuanto(r.created_at)}
         </p>
         <button onClick={() => onVerEnMapa(r.id)} className="btn-suave min-h-[40px] text-sm">
@@ -94,7 +94,7 @@ function FormBrigada({ catalogos, onCreada, notificar }) {
         <div className="flex gap-2">
           <input id="b-lugar" required className="campo" value={datos.lugar} onChange={set('lugar')} placeholder="Playa Norte, frente al malecón" />
           <button type="button" onClick={gps.obtener} className="btn-suave shrink-0 px-3" aria-label="Usar mi ubicación para la brigada">
-            <MapPin size={18} className={gps.coords ? 'text-emerald-600' : ''} aria-hidden />
+            <MapPin size={18} className={gps.coords ? 'text-turquesa-600' : ''} aria-hidden />
           </button>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function CommunityFeed({ catalogos, notificar, onVerEnMapa, sesio
   return (
     <div className="mx-auto max-w-7xl px-4 py-5">
       <h1 className="text-2xl font-bold sm:text-3xl">Comunidad</h1>
-      <p className="text-marino-600">Lo que tus vecinos están reportando y cuidando en Ciudad del Carmen.</p>
+      <p className="text-morado-600">Lo que tus vecinos están reportando y cuidando en Ciudad del Carmen.</p>
 
       <div className="my-4 flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Filtros de comunidad">
         {FILTROS.map((f) => (
@@ -150,14 +150,14 @@ export default function CommunityFeed({ catalogos, notificar, onVerEnMapa, sesio
             role="tab"
             aria-selected={filtro === f.id}
             onClick={() => setFiltro(f.id)}
-            className={`chip ${filtro === f.id ? 'border-naranja-500 bg-naranja-500 text-white' : 'border-marino-200 bg-white text-marino-700'}`}
+            className={`chip ${filtro === f.id ? 'border-magenta-500 bg-magenta-500 text-white' : 'border-morado-200 bg-white text-morado-700'}`}
           >
             <span aria-hidden>{f.icono}</span> {f.nombre}
           </button>
         ))}
       </div>
 
-      {cargando && <Loader2 className="mx-auto my-10 animate-spin text-naranja-500" size={36} aria-label="Cargando" />}
+      {cargando && <Loader2 className="mx-auto my-10 animate-spin text-magenta-500" size={36} aria-label="Cargando" />}
 
       {!cargando && filtro !== 'brigadas' && (
         reportes.length ? (
@@ -165,7 +165,7 @@ export default function CommunityFeed({ catalogos, notificar, onVerEnMapa, sesio
             {reportes.map((r) => <TarjetaReporte key={r.id} r={r} onVerEnMapa={onVerEnMapa} />)}
           </div>
         ) : (
-          <p className="tarjeta p-8 text-center text-marino-600">Aún no hay reportes en esta categoría. ¡Sé la primera persona en reportar! 🧡</p>
+          <p className="tarjeta p-8 text-center text-morado-600">Aún no hay reportes en esta categoría. ¡Sé la primera persona en reportar! 💜</p>
         )
       )}
 
@@ -181,22 +181,22 @@ export default function CommunityFeed({ catalogos, notificar, onVerEnMapa, sesio
           <div className="grid gap-4 md:grid-cols-2">
             {brigadas.map((b) => (
               <article key={b.id} className="tarjeta flex flex-col gap-2 p-5">
-                <p className="text-xs font-bold uppercase tracking-wide text-naranja-600">{b.categoria_nombre}</p>
+                <p className="text-xs font-bold uppercase tracking-wide text-magenta-600">{b.categoria_nombre}</p>
                 <h3 className="text-lg font-bold">{b.titulo}</h3>
-                {b.descripcion && <p className="text-sm text-marino-700">{b.descripcion}</p>}
-                <ul className="space-y-1 text-sm text-marino-700">
+                {b.descripcion && <p className="text-sm text-morado-700">{b.descripcion}</p>}
+                <ul className="space-y-1 text-sm text-morado-700">
                   <li className="flex items-center gap-1.5"><CalendarDays size={16} aria-hidden /> {new Date(b.fecha).toLocaleString('es-MX', { dateStyle: 'full', timeStyle: 'short' })}</li>
                   <li className="flex items-center gap-1.5"><MapPin size={16} aria-hidden /> {b.lugar}</li>
                   <li className="flex items-center gap-1.5"><UsersRound size={16} aria-hidden /> {b.participantes} participantes · organiza {b.organizador_alias || 'la comunidad'}</li>
                 </ul>
                 {b.unido ? (
-                  <p className="btn mt-2 bg-emerald-50 text-emerald-700"><Check size={18} aria-hidden /> Ya estás inscrito</p>
+                  <p className="btn mt-2 bg-turquesa-50 text-turquesa-700"><Check size={18} aria-hidden /> Ya estás inscrito</p>
                 ) : (
-                  <button onClick={() => unirse(b.id)} disabled={sesionLocal} className="btn-marino mt-2">Unirme a la brigada</button>
+                  <button onClick={() => unirse(b.id)} disabled={sesionLocal} className="btn-morado mt-2">Unirme a la brigada</button>
                 )}
               </article>
             ))}
-            {!brigadas.length && <p className="tarjeta p-8 text-center text-marino-600 md:col-span-2">No hay brigadas próximas. ¡Organiza la primera!</p>}
+            {!brigadas.length && <p className="tarjeta p-8 text-center text-morado-600 md:col-span-2">No hay brigadas próximas. ¡Organiza la primera!</p>}
           </div>
         </div>
       )}

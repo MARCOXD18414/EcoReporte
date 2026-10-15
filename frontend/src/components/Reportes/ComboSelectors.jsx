@@ -5,7 +5,7 @@ export function ComboTipo({ tipos, valor, onChange, sugeridoIA }) {
   return (
     <fieldset>
       <legend className="etiqueta">
-        Tipo de problema {sugeridoIA && <span className="ml-1 rounded-full bg-naranja-100 px-2 py-0.5 text-xs text-naranja-700">✨ sugerido por Gemma</span>}
+        Tipo de problema {sugeridoIA && <span className="ml-1 rounded-full bg-magenta-100 px-2 py-0.5 text-xs text-magenta-700">✨ sugerido por Gemma</span>}
       </legend>
       <select
         aria-label="Tipo de problema"
@@ -32,7 +32,7 @@ export function ComboTipo({ tipos, valor, onChange, sugeridoIA }) {
               onClick={() => onChange(t.id)}
               title={t.nombre}
               className={`flex min-h-[76px] flex-col items-center justify-center gap-1 rounded-xl border-2 p-2 text-center text-[11px] font-semibold leading-tight transition ${
-                activo ? 'border-naranja-500 bg-naranja-50 text-naranja-800' : 'border-marino-100 bg-white text-marino-700 hover:border-marino-300'
+                activo ? 'border-magenta-500 bg-magenta-50 text-magenta-800' : 'border-morado-100 bg-white text-morado-700 hover:border-morado-300'
               }`}
             >
               <span className="text-2xl" aria-hidden>{t.icono}</span>
@@ -50,7 +50,7 @@ export function ComboSeveridad({ severidades, valor, onChange, sugeridoIA }) {
   return (
     <fieldset>
       <legend className="etiqueta">
-        Severidad {sugeridoIA && <span className="ml-1 rounded-full bg-naranja-100 px-2 py-0.5 text-xs text-naranja-700">✨ sugerido por Gemma</span>}
+        Severidad {sugeridoIA && <span className="ml-1 rounded-full bg-magenta-100 px-2 py-0.5 text-xs text-magenta-700">✨ sugerido por Gemma</span>}
       </legend>
       <select aria-label="Severidad" className="campo mb-3" value={valor || ''} onChange={(e) => onChange(Number(e.target.value) || null)}>
         {severidades.map((s) => (
@@ -70,7 +70,7 @@ export function ComboSeveridad({ severidades, valor, onChange, sugeridoIA }) {
               role="radio"
               aria-checked={activo}
               onClick={() => onChange(s.id)}
-              className={`chip justify-center ${activo ? estilo.clase : 'border-marino-100 bg-white text-marino-600'}`}
+              className={`chip justify-center ${activo ? estilo.clase : 'border-morado-100 bg-white text-morado-600'}`}
             >
               <span aria-hidden>{estilo.icono}</span> {s.nombre}
             </button>

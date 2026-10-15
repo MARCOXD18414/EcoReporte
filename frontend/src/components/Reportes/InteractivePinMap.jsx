@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Circle, useMap, useMapEvents } from 'react-leaflet';
 import { Crosshair, MapPin, X, Navigation } from 'lucide-react';
 import { CENTRO_CARMEN, ESTILO_ESTADO, ESTILO_SEVERIDAD } from '../../services/catalogos.js';
 
@@ -9,7 +9,7 @@ import { CENTRO_CARMEN, ESTILO_ESTADO, ESTILO_SEVERIDAD } from '../../services/c
  *  - Modo consulta: pines por reporte; al seleccionar se enfoca y muestra la tarjeta "Ubicación Seleccionada".
  *  - Modo edición: pin arrastrable / toque en el mapa para corregir la ubicación.
  */
-function iconoPin({ emoji = '📍', color = '#14294B', seleccionado = false }) {
+function iconoPin({ emoji = '📍', color = '#880EBA', seleccionado = false }) {
   const tam = seleccionado ? 48 : 38;
   return L.divIcon({
     className: `pin-eco${seleccionado ? ' seleccionado' : ''}`,
@@ -19,7 +19,7 @@ function iconoPin({ emoji = '📍', color = '#14294B', seleccionado = false }) {
   });
 }
 
-const iconoEdicion = iconoPin({ emoji: '📌', color: '#F7891F', seleccionado: true });
+const iconoEdicion = iconoPin({ emoji: '📌', color: '#880EBA', seleccionado: true });
 
 function Enfocar({ objetivo, zoom = 16 }) {
   const map = useMap();
@@ -45,7 +45,7 @@ function BotonCentrar({ objetivo }) {
     <button
       type="button"
       onClick={() => map.flyTo(objetivo, 15)}
-      className="absolute right-3 top-3 z-[500] rounded-xl bg-white p-2.5 text-marino-800 shadow-tarjeta hover:bg-marino-50"
+      className="absolute right-3 top-3 z-[500] rounded-xl bg-white p-2.5 text-morado-800 shadow-tarjeta hover:bg-morado-50"
       aria-label="Centrar mapa"
     >
       <Crosshair size={22} aria-hidden />
@@ -65,10 +65,10 @@ export function TarjetaUbicacion({ reporte, onCerrar, acciones }) {
       className="tarjeta absolute inset-x-3 bottom-3 z-[600] max-h-[60%] overflow-y-auto p-4 md:inset-x-auto md:right-3 md:top-3 md:bottom-auto md:w-96 md:max-h-[calc(100%-1.5rem)]"
     >
       <div className="flex items-start justify-between gap-2">
-        <p className="flex items-center gap-1 text-xs font-bold uppercase tracking-wide text-naranja-600">
+        <p className="flex items-center gap-1 text-xs font-bold uppercase tracking-wide text-magenta-600">
           <MapPin size={14} aria-hidden /> Ubicación seleccionada
         </p>
-        <button onClick={onCerrar} className="-m-1 rounded-lg p-1 hover:bg-marino-50" aria-label="Cerrar detalle">
+        <button onClick={onCerrar} className="-m-1 rounded-lg p-1 hover:bg-morado-50" aria-label="Cerrar detalle">
           <X size={18} aria-hidden />
         </button>
       </div>
@@ -80,28 +80,28 @@ export function TarjetaUbicacion({ reporte, onCerrar, acciones }) {
         <span className={`rounded-full border px-2.5 py-0.5 text-xs font-bold ${sev.clase}`}>
           {sev.icono} {reporte.severidad_nombre}
         </span>
-        {reporte.es_alerta_rapida && <span className="rounded-full bg-red-600 px-2.5 py-0.5 text-xs font-bold text-white">Alerta rápida</span>}
-        {reporte.procesado_offline && <span className="rounded-full bg-marino-100 px-2.5 py-0.5 text-xs font-bold text-marino-700">Enviado offline</span>}
+        {reporte.es_alerta_rapida && <span className="rounded-full bg-magenta-600 px-2.5 py-0.5 text-xs font-bold text-white">Alerta rápida</span>}
+        {reporte.procesado_offline && <span className="rounded-full bg-morado-100 px-2.5 py-0.5 text-xs font-bold text-morado-700">Enviado offline</span>}
       </div>
 
       {reporte.imagen_url && (
         <img src={reporte.imagen_url} alt={`Foto del reporte: ${reporte.tipo_nombre}`} loading="lazy" className="mt-3 h-40 w-full rounded-xl object-cover" />
       )}
       {reporte.analisis_ia?.resumen && (
-        <p className="mt-3 rounded-xl bg-marino-50 p-2.5 text-sm">
-          <strong className="text-marino-700">Gemma IA:</strong> {reporte.analisis_ia.resumen}
-          {reporte.confianza_ia != null && <span className="text-marino-500"> · {Math.round(reporte.confianza_ia * 100)}%</span>}
+        <p className="mt-3 rounded-xl bg-morado-50 p-2.5 text-sm">
+          <strong className="text-morado-700">Gemma IA:</strong> {reporte.analisis_ia.resumen}
+          {reporte.confianza_ia != null && <span className="text-morado-500"> · {Math.round(reporte.confianza_ia * 100)}%</span>}
         </p>
       )}
-      {reporte.descripcion_detallada && <p className="mt-2 text-sm text-marino-700">“{reporte.descripcion_detallada}”</p>}
+      {reporte.descripcion_detallada && <p className="mt-2 text-sm text-morado-700">“{reporte.descripcion_detallada}”</p>}
 
       <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
         <div>
-          <dt className="font-semibold text-marino-500">Coordenadas</dt>
+          <dt className="font-semibold text-morado-500">Coordenadas</dt>
           <dd className="font-mono">{lat}, {lng}</dd>
         </div>
         <div>
-          <dt className="font-semibold text-marino-500">Fecha</dt>
+          <dt className="font-semibold text-morado-500">Fecha</dt>
           <dd>{new Date(reporte.created_at).toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' })}</dd>
         </div>
       </dl>
@@ -127,6 +127,8 @@ export default function InteractivePinMap({
   className = 'h-[60vh]',
   mostrarTarjeta = true,
   accionesTarjeta,
+  precisionPin = null,
+  mostrarLeyenda = false,
 }) {
   const seleccionado = useMemo(() => reportes.find((r) => r.id === seleccionadoId), [reportes, seleccionadoId]);
   const editable = typeof onMoverPin === 'function';
@@ -138,8 +140,10 @@ export default function InteractivePinMap({
       : null;
 
   return (
-    <div className={`relative overflow-hidden rounded-2xl border border-marino-100 ${className}`}>
-      <MapContainer center={objetivo || CENTRO_CARMEN} zoom={13} className="h-full w-full" scrollWheelZoom zoomControl>
+    <div className={`relative overflow-hidden rounded-2xl border border-morado-100 ${className}`}>
+      <MapContainer
+        center={objetivo || (pinEditable ? [pinEditable.lat, pinEditable.lng] : CENTRO_CARMEN)}
+        zoom={pinEditable?.manual ? 16 : 13} className="h-full w-full" scrollWheelZoom zoomControl>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -155,16 +159,24 @@ export default function InteractivePinMap({
             position={[Number(r.latitud), Number(r.longitud)]}
             icon={iconoPin({
               emoji: r.tipo_icono,
-              color: (ESTILO_ESTADO[r.estado_slug] || ESTILO_ESTADO.pendiente).color,
+              color: (ESTILO_SEVERIDAD[r.severidad_slug] || ESTILO_SEVERIDAD.moderada).color,
               seleccionado: r.id === seleccionadoId,
             })}
-            title={`${r.tipo_nombre} · ${r.estado_nombre}`}
-            alt={`${r.tipo_nombre}, ${r.estado_nombre}`}
+            title={`${r.tipo_nombre} · Nivel ${r.severidad_nombre} · ${r.estado_nombre}`}
+            alt={`${r.tipo_nombre}, nivel ${r.severidad_nombre}, ${r.estado_nombre}`}
             keyboard
             zIndexOffset={r.id === seleccionadoId ? 1000 : 0}
             eventHandlers={{ click: () => onSeleccionar?.(r.id) }}
           />
         ))}
+
+        {editable && pinEditable && !pinEditable.manual && precisionPin > 0 && (
+          <Circle
+            center={[pinEditable.lat, pinEditable.lng]}
+            radius={precisionPin}
+            pathOptions={{ color: '#880EBA', fillColor: '#BA7CEE', fillOpacity: 0.18, weight: 1.5 }}
+          />
+        )}
 
         {editable && pinEditable && (
           <Marker
@@ -186,9 +198,23 @@ export default function InteractivePinMap({
       </MapContainer>
 
       {editable && (
-        <p className="pointer-events-none absolute left-3 top-3 z-[500] max-w-[70%] rounded-xl bg-marino-800/90 px-3 py-1.5 text-xs font-medium text-white">
+        <p className="pointer-events-none absolute left-3 top-3 z-[500] max-w-[70%] rounded-xl bg-morado-800/90 px-3 py-1.5 text-xs font-medium text-white">
           Toca el mapa o arrastra el pin 📌 para ajustar la ubicación
         </p>
+      )}
+
+      {mostrarLeyenda && (
+        <ul
+          aria-label="Nivel de los reportes"
+          className="absolute bottom-6 left-3 z-[500] space-y-1 rounded-xl bg-white/95 px-3 py-2 text-xs font-semibold text-morado-900 shadow-tarjeta"
+        >
+          {Object.values(ESTILO_SEVERIDAD).map((s) => (
+            <li key={s.etiqueta} className="flex items-center gap-2">
+              <span className="h-3.5 w-3.5 rounded-full border-2 border-white shadow" style={{ background: s.color }} aria-hidden />
+              {s.etiqueta}
+            </li>
+          ))}
+        </ul>
       )}
 
       {mostrarTarjeta && seleccionado && (

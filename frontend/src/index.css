@@ -10,7 +10,7 @@
     min-height: 100dvh;
   }
   :focus-visible {
-    @apply outline-none ring-4 ring-naranja-400 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-4 ring-magenta-400 ring-offset-2 ring-offset-white;
   }
 }
 
@@ -23,20 +23,20 @@
            disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-primario {
-    @apply btn bg-naranja-500 text-white hover:bg-naranja-600 active:scale-[0.98];
+    @apply btn bg-magenta-500 text-white hover:bg-magenta-600 active:scale-[0.98];
   }
-  .btn-marino {
-    @apply btn bg-marino-800 text-white hover:bg-marino-700 active:scale-[0.98];
+  .btn-morado {
+    @apply btn bg-morado-800 text-white hover:bg-morado-700 active:scale-[0.98];
   }
   .btn-suave {
-    @apply btn border border-marino-200 bg-white text-marino-800 hover:bg-marino-50;
+    @apply btn border border-morado-200 bg-white text-morado-800 hover:bg-morado-50;
   }
   .campo {
-    @apply block w-full min-h-[48px] rounded-xl border-2 border-marino-200 bg-white px-3 py-2.5 text-base text-marino-900
-           focus:border-naranja-500 focus:outline-none;
+    @apply block w-full min-h-[48px] rounded-xl border-2 border-morado-200 bg-white px-3 py-2.5 text-base text-morado-900
+           focus:border-magenta-500 focus:outline-none;
   }
   .etiqueta {
-    @apply mb-1.5 block text-sm font-semibold text-marino-800;
+    @apply mb-1.5 block text-sm font-semibold text-morado-800;
   }
   .chip {
     @apply inline-flex min-h-[40px] items-center gap-1.5 whitespace-nowrap rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition;
@@ -66,7 +66,7 @@
 .pin-eco.seleccionado .pin-cuerpo {
   width: 48px;
   height: 48px;
-  border-color: #f7891f;
+  border-color: #3b0a57;
 }
 .leaflet-container {
   font-family: inherit;
