@@ -1,0 +1,38 @@
+# Deploy en Render (plan gratuito): Dashboard → New → Blueprint → elegir este repositorio.
+# Render pedirá los valores marcados con sync: false (las claves NO van en GitHub).
+services:
+  - type: web
+    name: ecoreporte
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: SERVE_FRONTEND
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        value: reportes
+      - key: AI_PROVIDER
+        value: google
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMMA_MODEL
+        value: gemma-4-26b-a4b-it
+      - key: GEMMA_THINKING
+        value: MINIMAL
+      - key: AI_TIMEOUT_MS
+        value: "45000"
+      - key: AI_MIN_CONFIDENCE
+        value: "0.55"

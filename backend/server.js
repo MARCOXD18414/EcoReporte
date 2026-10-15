@@ -18,7 +18,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
 
-const origenes = (process.env.CORS_ORIGINS || 'http://localhost:5173')
+// En la nube se agrega sola la URL pública (Render la expone en RENDER_EXTERNAL_URL)
+const origenes = [process.env.CORS_ORIGINS || 'http://localhost:5173', process.env.RENDER_EXTERNAL_URL, process.env.APP_URL]
+  .filter(Boolean)
+  .join(',')
   .split(',')
   .map((o) => o.trim())
   .filter(Boolean);

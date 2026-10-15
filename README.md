@@ -96,12 +96,22 @@ El Service Worker sólo se registra en el build de producción, para no interfer
 ```bash
 cd frontend && npm run build && npm run preview   # http://localhost:4173
 ```
-En DevTools → **Network → Offline**: crea un reporte, verás el contador naranja ☁️. Vuelve a **Online** y el reporte se sincroniza solo; Gemma lo analiza en el backend y queda marcado `procesado_offline = true`.
+En DevTools → **Network → Offline**: crea un reporte, verás el contador amarillo ☁️. Vuelve a **Online** y el reporte se sincroniza solo; Gemma lo analiza en el backend y queda marcado `procesado_offline = true`.
 
-### 5. Deploy único (DigitalOcean App Platform o Droplet)
+### 5. Publicar en internet (Render, gratis): un solo servicio
+El backend compila y sirve la PWA en la misma URL. Las claves viven como variables privadas del servidor, **nunca en GitHub**.
+
+1. Entra a <https://render.com> con tu cuenta de GitHub.
+2. **New → Blueprint** y elige este repositorio. Render lee `render.yaml`.
+3. Pega los 3 valores secretos que pide: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` y `GEMINI_API_KEY`.
+4. **Apply**. En unos 3 minutos tendrás `https://ecoreporte.onrender.com` (o similar) con HTTPS, lista para instalar como PWA.
+
+> El plan gratuito se duerme tras 15 min sin uso; la primera visita tarda unos 50 s en despertar.
+
+Equivalente manual en cualquier servidor (DigitalOcean App Platform, Droplet, etc.):
 ```bash
-cd frontend && npm run build
-cd ../backend && npm start      # sirve la API y frontend/dist en el mismo puerto
+npm run build   # instala y compila frontend + backend
+npm start       # sirve API y PWA en $PORT
 ```
 Opcional, IA 100 % open-source en un Droplet con GPU/CPU:
 ```bash

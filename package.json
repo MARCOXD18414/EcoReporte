@@ -1,0 +1,12 @@
+{
+  "name": "ecoreporte",
+  "private": true,
+  "description": "EcoReporta Carmen: build y arranque únicos (el backend sirve la PWA compilada)",
+  "scripts": {
+    "build": "npm --prefix frontend ci --include=dev && npm --prefix frontend run build && npm --prefix backend ci --omit=dev",
+    "start": "node backend/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
