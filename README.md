@@ -1,5 +1,7 @@
 # 🌱 EcoReporta Carmen — *Por un medio ambiente mejor* 💜
 
+> EcoReporta Carmen: PWA para reportar incidentes ambientales en la Laguna de Términos, manglares y Playa Norte. Toma una foto y Gemma 4 clasifica el problema y llena el reporte. Funciona sin señal: guarda en el teléfono y sincroniza al volver la red. Mapa de pines por nivel, alerta rápida con GPS o pin y panel para autoridades con Supabase.
+
 PWA híbrida para reportar incidentes ambientales en la **Laguna de Términos**, los **manglares** y **Playa Norte** de Ciudad del Carmen, Campeche. Toma una foto y **Gemma 4** clasifica el incidente y pre-selecciona los campos. **Sin señal**, el reporte se guarda en el teléfono y se envía (y analiza) en cuanto vuelve la red.
 
 | Reto del Hackathon | Cómo lo cumple |
