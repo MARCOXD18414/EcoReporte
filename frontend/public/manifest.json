@@ -1,0 +1,21 @@
+{
+  "name": "EcoReporta Carmen",
+  "short_name": "EcoReporta",
+  "description": "Reporta incidentes ambientales en la Laguna de Términos, manglares y Playa Norte. Funciona sin señal.",
+  "lang": "es-MX",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0C1B33",
+  "theme_color": "#14294B",
+  "categories": ["utilities", "social", "government"],
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Alerta rápida", "short_name": "Alerta", "url": "/?accion=alerta", "icons": [{ "src": "/icons/icon.svg", "sizes": "any" }] },
+    { "name": "Ver mapa", "short_name": "Mapa", "url": "/?vista=mapa", "icons": [{ "src": "/icons/icon.svg", "sizes": "any" }] }
+  ]
+}

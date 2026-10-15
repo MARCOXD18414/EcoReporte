@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    min-height: 100dvh;
+  }
+  :focus-visible {
+    @apply outline-none ring-4 ring-naranja-400 ring-offset-2 ring-offset-white;
+  }
+}
+
+@layer components {
+  .tarjeta {
+    @apply rounded-2xl bg-white shadow-tarjeta;
+  }
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-semibold transition
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primario {
+    @apply btn bg-naranja-500 text-white hover:bg-naranja-600 active:scale-[0.98];
+  }
+  .btn-marino {
+    @apply btn bg-marino-800 text-white hover:bg-marino-700 active:scale-[0.98];
+  }
+  .btn-suave {
+    @apply btn border border-marino-200 bg-white text-marino-800 hover:bg-marino-50;
+  }
+  .campo {
+    @apply block w-full min-h-[48px] rounded-xl border-2 border-marino-200 bg-white px-3 py-2.5 text-base text-marino-900
+           focus:border-naranja-500 focus:outline-none;
+  }
+  .etiqueta {
+    @apply mb-1.5 block text-sm font-semibold text-marino-800;
+  }
+  .chip {
+    @apply inline-flex min-h-[40px] items-center gap-1.5 whitespace-nowrap rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition;
+  }
+}
+
+/* Pines de Leaflet personalizados (divIcon) */
+.pin-eco {
+  background: transparent;
+  border: none;
+}
+.pin-eco .pin-cuerpo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 3px solid #fff;
+  box-shadow: 0 3px 10px rgba(12, 27, 51, 0.35);
+}
+.pin-eco .pin-cuerpo span {
+  transform: rotate(45deg);
+  font-size: 17px;
+  line-height: 1;
+}
+.pin-eco.seleccionado .pin-cuerpo {
+  width: 48px;
+  height: 48px;
+  border-color: #f7891f;
+}
+.leaflet-container {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,16 @@
+# Dependencias y builds
+node_modules/
+dist/
+.vite/
+
+# Secretos: NUNCA subir claves
+.env
+.env.*
+!.env.example
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
