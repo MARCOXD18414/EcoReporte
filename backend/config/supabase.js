@@ -1,9 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-const url = process.env.SUPABASE_URL;
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// Toma sólo el primer "token": tolera claves pegadas con espacios, comillas o líneas extra
+// (p. ej. en el panel del hosting se pegó "eyJ...\nSUPABASE_BUCKET=reportes").
+export const limpiarValor = (v) => String(v || '').trim().replace(/^["']|["']$/g, '').split(/\s+/)[0] || undefined;
 
-export const STORAGE_BUCKET = process.env.SUPABASE_BUCKET || 'reportes';
+const url = limpiarValor(process.env.SUPABASE_URL);
+const serviceKey = limpiarValor(process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+export const STORAGE_BUCKET = limpiarValor(process.env.SUPABASE_BUCKET) || 'reportes';
 
 export const supabase =
   url && serviceKey

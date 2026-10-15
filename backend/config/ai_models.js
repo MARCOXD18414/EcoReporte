@@ -7,7 +7,7 @@ export const AI_CONFIG = {
   timeoutMs: Number(process.env.AI_TIMEOUT_MS || 45000),
   minConfidenceAutofill: Number(process.env.AI_MIN_CONFIDENCE || 0.55),
   google: {
-    apiKey: process.env.GEMINI_API_KEY,
+    apiKey: String(process.env.GEMINI_API_KEY || '').trim().split(/\s+/)[0] || undefined,
     // 26b-a4b (MoE) responde en ~3 s; 31b es más preciso pero ~25 s y suele saturarse
     model: process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it',
     // Gemma 4 "piensa" antes de responder; MINIMAL lo desactiva casi por completo (vacío = sin ajuste)

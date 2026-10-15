@@ -27,7 +27,14 @@ const origenes = [process.env.CORS_ORIGINS || 'http://localhost:5173', process.e
   .filter(Boolean);
 
 app.disable('x-powered-by');
-app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: false }));
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: false,
+    // Los servidores de mapas (OSM/CARTO) exigen el header Referer; "no-referrer" provoca 403
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  })
+);
 app.use(cors({ origin: (origin, cb) => cb(null, !origin || origenes.includes(origin)) }));
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));

@@ -5,7 +5,7 @@
  *  · Teselas del mapa: cache-first (zonas ya visitadas disponibles offline)
  *  · POST:             nunca se cachea; la cola offline vive en IndexedDB
  */
-const VERSION = 'v1.0.0';
+const VERSION = 'v1.1.0';
 const SHELL = `ecoreporta-shell-${VERSION}`;
 const RUNTIME = `ecoreporta-runtime-${VERSION}`;
 const API = `ecoreporta-api-${VERSION}`;
