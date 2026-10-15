@@ -31,14 +31,20 @@ export async function analizarConGemma({ buffer, mimeType = 'image/jpeg', descri
   if (buffer) parts.push({ inlineData: { mimeType, data: buffer.toString('base64') } });
   parts.push({ text: construirPrompt(descripcion) });
 
-  const respuesta = await conTimeout(
-    getClient().models.generateContent({
-      model: AI_CONFIG.google.model,
-      contents: [{ role: 'user', parts }],
-      config: { temperature: 0.2, maxOutputTokens: 700 },
-    }),
-    AI_CONFIG.timeoutMs
-  );
+  const { model, thinkingLevel } = AI_CONFIG.google;
+  // Margen amplio: los tokens de "pensamiento" de Gemma 4 cuentan contra este límite
+  const config = { temperature: 0.2, maxOutputTokens: 4096 };
+  const generar = (cfg) =>
+    conTimeout(getClient().models.generateContent({ model, contents: [{ role: 'user', parts }], config: cfg }), AI_CONFIG.timeoutMs);
+
+  let respuesta;
+  try {
+    respuesta = await generar(thinkingLevel ? { ...config, thinkingConfig: { thinkingLevel } } : config);
+  } catch (err) {
+    // Algunos modelos no aceptan thinkingConfig: reintenta sin él
+    if (!thinkingLevel || !/thinking/i.test(err.message)) throw err;
+    respuesta = await generar(config);
+  }
 
   return normalizarAnalisis(extraerJSON(respuesta.text), AI_CONFIG.google.model);
 }
