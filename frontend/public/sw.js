@@ -5,7 +5,7 @@
  *  · Teselas del mapa: cache-first (zonas ya visitadas disponibles offline)
  *  · POST:             nunca se cachea; la cola offline vive en IndexedDB
  */
-const VERSION = 'v1.1.0';
+const VERSION = 'v1.2.0';
 const SHELL = `ecoreporta-shell-${VERSION}`;
 const RUNTIME = `ecoreporta-runtime-${VERSION}`;
 const API = `ecoreporta-api-${VERSION}`;
@@ -102,7 +102,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (/tile\.openstreetmap\.org|basemaps\.cartocdn\.com/.test(url.hostname)) {
+  if (/tile\.openstreetmap\.org|basemaps\.cartocdn\.com|arcgisonline\.com/.test(url.hostname)) {
     event.respondWith(cacheFirst(req, TILES, MAX_TILES));
     return;
   }

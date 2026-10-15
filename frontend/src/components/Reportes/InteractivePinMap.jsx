@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Circle, useMap, useMapEvents } from 'react-leaflet';
 import { Crosshair, MapPin, X, Navigation } from 'lucide-react';
@@ -118,6 +118,60 @@ export function TarjetaUbicacion({ reporte, onCerrar, acciones }) {
   );
 }
 
+/**
+ * Proveedores de mapa base SIN API key, en orden de preferencia.
+ * Si uno falla (bloqueo de red, límite, caída), se cambia solo al siguiente.
+ */
+const PROVEEDORES_MAPA = [
+  {
+    id: 'carto',
+    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    subdomains: 'abcd',
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  },
+  {
+    id: 'esri',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+    maxZoom: 19,
+    attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap',
+  },
+  {
+    id: 'osm',
+    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  },
+];
+let proveedorGlobal = 0; // compartido: si CARTO falla en un mapa, los demás ya arrancan con el respaldo
+
+function CapaBase() {
+  const [indice, setIndice] = useState(proveedorGlobal);
+  const errores = useRef(0);
+  const p = PROVEEDORES_MAPA[indice];
+
+  const alFallar = () => {
+    errores.current += 1;
+    if (errores.current >= 3 && indice < PROVEEDORES_MAPA.length - 1) {
+      errores.current = 0;
+      proveedorGlobal = indice + 1;
+      console.warn(`[mapa] ${p.id} no responde; usando ${PROVEEDORES_MAPA[indice + 1].id}`);
+      setIndice(indice + 1);
+    }
+  };
+
+  return (
+    <TileLayer
+      key={p.id}
+      url={p.url}
+      attribution={p.attribution}
+      maxZoom={p.maxZoom}
+      {...(p.subdomains ? { subdomains: p.subdomains } : {})}
+      eventHandlers={{ tileerror: alFallar, tileload: () => (errores.current = 0) }}
+    />
+  );
+}
+
 export default function InteractivePinMap({
   reportes = [],
   seleccionadoId = null,
@@ -144,13 +198,7 @@ export default function InteractivePinMap({
       <MapContainer
         center={objetivo || (pinEditable ? [pinEditable.lat, pinEditable.lng] : CENTRO_CARMEN)}
         zoom={pinEditable?.manual ? 16 : 13} className="h-full w-full" scrollWheelZoom zoomControl>
-        <TileLayer
-          // CARTO Voyager (datos de OpenStreetMap): no bloquea apps publicadas como sí lo hace tile.openstreetmap.org
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-          subdomains="abcd"
-          maxZoom={20}
-        />
+        <CapaBase />
         <Enfocar objetivo={objetivo} />
         <BotonCentrar objetivo={objetivo || CENTRO_CARMEN} />
         <ClicParaColocar activo={editable} onColocar={(p) => onMoverPin?.(p, true)} onDeseleccionar={() => onSeleccionar?.(null)} />
